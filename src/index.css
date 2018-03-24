@@ -1,0 +1,44 @@
+.directory {
+	background-color: LightGray;
+	max-width: 1000px;
+}
+.title {
+	font-size: 24px;
+}
+.version {
+	font-size: 12px;
+}
+.chooseProvider{
+	float: left;
+	width: 50%;
+	height: 100%;
+	background-color: White;
+}
+.resultSection{
+	float: right;
+	width: 50%;
+}
+.providerList{
+	max-width: 600px;
+}
+.entry{
+    border-bottom: solid;
+    border-width: 1px;
+}
+.name{
+	display: in-line;
+	font-weight: bold;
+	font-size:18px;
+}
+.email{
+	font-size: 14px;
+}
+.specialtyLabel{
+	font-weight: normal;
+	float: right;
+	font-size:18px;
+}
+.specialty{
+	float: right;
+	font-size: 14px;
+}
