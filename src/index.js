@@ -7,14 +7,23 @@ import data from './data.json';
 class Directory extends React.Component {
 	constructor(props) {
 		super(props);
-		this.addRow = this.addRow.bind(this);
-		this.makeRows = this.makeRows.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 		this.state = {
-			rows: data
+			rows: data,
 		}
-		this.makeRows();
-		console.log(this.state.rows)
 	}
+		
+	handleSubmit(e) {
+		e.preventDefault();
+		
+		const formData = {};
+		for(const field in this.refs) {
+			formData[field] = this.refs[field].value;
+		}
+		this.state.rows.push(formData)
+		this.setState({'rows' : this.state.rows});
+	}
+	
 	render() {
 		return (
 			<div className="directory">
@@ -25,36 +34,34 @@ class Directory extends React.Component {
 						<form>
 							<label>
 								Last Name
-								<br/><input type="text" name="lastName" /><br/>
+							<br/><input type="text" ref="last_name" placeholder="" value={this.state.lastName}/><br/>
 							</label>
 							<label>
 								First Name
-								<br/><input type="text" name="firstName" /><br/>
+								<br/><input type="text" ref="first_name" /><br/>
 							</label>
 							<label>
 								Email Address
-								<br/><input type="text" name="emailAddress" /><br/>
+								<br/><input type="text" ref="email_address" /><br/>
 							</label>
 							<label>
 								Specialty
-								<br/><input type="text" name="specialty" /><br/>
+								<br/><input type="text" ref="specialty" /><br/>
 							</label>
 							<label>
 								Practice Name
-							<br/><input type="text" name="practiceName" /><br/>
-							</label>  
-							<br/><input className= "submit" type="submit" value="Submit" /><br/>
+							<br/><input type="text" ref="practice_name" /><br/>
+							</label>
+							<input type="button" value="Submit" onClick={this.handleSubmit} />
 						</form>
 					</div>
 					<div className="resultSection">
 						<div>Provider List</div>
 							<ul className = "providerList"> {
-								//this.makeRows()
-								this.state.rows.map(function(item) {
-									return <div>{
+								this.state.rows.map(function(item, i) {
+									return <div  key={i}>{
 										<div className="entry">
-											<input type="checkbox"></input>
-											<div className = "name">{item.last_name}, {item.first_name}
+											<div className = "name"><input type="checkbox"></input>{item.last_name}, {item.first_name}
 												<label className = "specialtyLabel">Specialty</label><br></br>
 											</div>
 											<div className = "specialty"> {item.specialty} </div>
@@ -67,27 +74,6 @@ class Directory extends React.Component {
 				</div>
 			</div>
 		);
-	}
-		
-	addRow() {
-		var nextState = this.state;
-		nextState.rows.push('row');
-		this.setState(nextState);
-	}
-	
-	makeRows() {
-		var data = this.state.rows;
-		console.log('making rows')
-		console.log(data);
-		
-		var html = "";
-		
-		data.forEach(function(item) {
-			console.log(item);
-			html += <li> {item.last_name} </li>;
-		});
-		console.log(html);
-		return html;
 	}
 }
 
